@@ -6,8 +6,10 @@ import numpy as np
 import base64
 import queue
 
+list = {}
+
 def extractFrames(fileName, outputBuffer, maxFramesToLoad=9999):
-    # Initialize frame count 
+    # Initialize frame count
     count = 0
 
     # open video file
@@ -15,7 +17,7 @@ def extractFrames(fileName, outputBuffer, maxFramesToLoad=9999):
 
     # read first image
     success,image = vidcap.read()
-    
+
     print(f'Reading frame {count} {success}')
     while success and count < maxFramesToLoad:
         # get a jpg encoded frame
@@ -26,7 +28,7 @@ def extractFrames(fileName, outputBuffer, maxFramesToLoad=9999):
 
         # add the frame to the buffer
         outputBuffer.put(image)
-       
+
         success,image = vidcap.read()
         print(f'Reading frame {count} {success}')
         count += 1
@@ -38,12 +40,12 @@ def displayFrames(inputBuffer):
     # initialize frame count
     count = 0
 
-    # go through each frame in the buffer until the buffer is empty
+    # go through each frame in the buffer until the
     while not inputBuffer.empty():
         # get the next frame
         frame = inputBuffer.get()
 
-        print(f'Displaying frame {count}')        
+        print(f'Displaying frame {count}')
 
         # display the image in a window called "video" and wait 42ms
         # before displaying the next frame
@@ -60,7 +62,7 @@ def displayFrames(inputBuffer):
 # filename of clip to load
 filename = 'clip.mp4'
 
-# shared queue  
+# shared queue
 extractionQueue = queue.Queue()
 
 # extract the frames
@@ -68,4 +70,3 @@ extractFrames(filename,extractionQueue, 72)
 
 # display the frames
 displayFrames(extractionQueue)
-
