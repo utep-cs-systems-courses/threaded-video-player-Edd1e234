@@ -37,8 +37,8 @@ class imageQueue():
 
 
 # Contains color images. 
-image_consumer = imageQueue(24)
-image_producer = imageQueue(24)
+image_consumer = imageQueue(10)
+image_producer = imageQueue(10)
 
 def extract_frames():
     count = 0
